@@ -2,4 +2,51 @@ body {
     margin: 0;
     background: url('../img/index_bg.jpg') no-repeat;
     background-size: cover;
+    background-position: center;
+    /*overflow: hidden;*/
+}
+
+img {
+    display: block;
+}
+
+.img_box {
+    width: 90vw;
+    height: 30vw;
+    background: rgba(50, 200, 200, 0.5);
+    position: absolute;
+    top: 25vh;
+    left: 5vw;
+    overflow: hidden;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 1000vw;
+    height: 30vw;
+}
+
+li {
+    float: left;
+    width: 26.667vw;
+    height: 20vw;
+    margin-top: 5vw;
+    margin-left: 1vw;
+    background: rgba(255, 94, 0, 0.3);
+}
+
+li.active {
+    width: 40vw;
+    height: 30vw;
+    position: absolute;
+    top: -5vw;
+    left: 25vw;
+    background: rgba(255, 50, 150, .5);
+}
+
+li img {
+    width: 960px;
+    height: 540px;
 }
