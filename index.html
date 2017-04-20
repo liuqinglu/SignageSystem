@@ -6,24 +6,17 @@
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
-<!--<ul>-->
-<!--<li><img src="images/img_001.jpg" alt="img_001"></li>-->
-<!--<li><img src="images/img_002.jpg" alt="img_002"></li>-->
-<!--<li><img src="images/img_003.jpg" alt="img_003"></li>-->
-<!--<li><img src="images/img_004.jpg" alt="img_004"></li>-->
-<!--<li><img src="images/img_005.jpg" alt="img_005"></li>-->
-<!--</ul>-->
 <nav class="nav">
     <ul>
-        <li>1</li>
-        <li>2</li>
-        <li class="active">3</li>
-        <li>4</li>
-        <li>5</li>
-        <li>6</li>
-        <li>7</li>
-        <li>8</li>
-        <li>9</li>
+        <li style="transform: rotateY(0deg) translateZ(430px);">1</li>
+        <li style="transform: rotateY(40deg) translateZ(430px);">2</li>
+        <li style="transform: rotateY(80deg) translateZ(430px);">3</li>
+        <li style="transform: rotateY(120deg) translateZ(430px);">4</li>
+        <li style="transform: rotateY(160deg) translateZ(430px);">5</li>
+        <li style="transform: rotateY(200deg) translateZ(430px);">6</li>
+        <li style="transform: rotateY(240deg) translateZ(430px);">7</li>
+        <li style="transform: rotateY(280deg) translateZ(430px);">8</li>
+        <li style="transform: rotateY(320deg) translateZ(430px);">9</li>
     </ul>
 </nav>
 <!--背景特效-->
@@ -32,5 +25,20 @@
 <script src="js/jquery-3.2.1.min.js"></script>
 <!--背景特效js-->
 <script src="js/index_bgCanvas.js"></script>
+<script>
+    transform = function (element, value, key) {
+        key = key || "Transform";
+        ["Moz", "O", "Ms", "Webkit", ""].forEach(function (prefix) {
+            element.style[prefix + key] = value;
+        });
+        return element;
+    };
+    var i = 0;
+    var liNum = $('ul li').length;//列表数量
+    rotate = 360 / liNum;//角度
+    $("ul").click(function () {
+        transform(this, "rotateY(" + (-1 * rotate * ++i) + "deg)");
+    });
+</script>
 </body>
 </html>

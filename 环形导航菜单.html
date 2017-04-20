@@ -10,7 +10,6 @@
             margin: 0 auto;
             padding: 50px;
             background-color: #fef;
-            border-radius: 5px;
             -webkit-perspective: 900px;
             -webkit-transition: top .5s;
             perspective: 900px;
@@ -73,8 +72,18 @@
         });
         return element;
     };
+
+
+    //r = 64 / Math.tan(20 / 180 * Math.PI) ≈ 175.8
+    /**
+     * 列表数量liNum
+     * 列表宽度liWidth
+     * @type {number}
+     */
     var i = 0;
-    rotate = 360 / $('li').length;
+    var liNum = $('#container li').length;//列表数量
+//    var liWidth = 100;
+    rotate = 360 / liNum;//角度
     $("#container").click(function () {
         transform(this, "rotateY(" + (-1 * rotate * ++i) + "deg)");
     });
