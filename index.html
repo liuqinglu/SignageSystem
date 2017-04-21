@@ -7,16 +7,17 @@
 </head>
 <body>
 <nav class="nav">
-    <ul>
-        <li style="transform: rotateY(0deg) translateZ(430px);">1</li>
-        <li style="transform: rotateY(40deg) translateZ(430px);">2</li>
-        <li style="transform: rotateY(80deg) translateZ(430px);">3</li>
-        <li style="transform: rotateY(120deg) translateZ(430px);">4</li>
-        <li style="transform: rotateY(160deg) translateZ(430px);">5</li>
-        <li style="transform: rotateY(200deg) translateZ(430px);">6</li>
-        <li style="transform: rotateY(240deg) translateZ(430px);">7</li>
-        <li style="transform: rotateY(280deg) translateZ(430px);">8</li>
-        <li style="transform: rotateY(320deg) translateZ(430px);">9</li>
+    <div class="nav_title" hidden>导航</div>
+    <ul style="transform: rotateY(0deg)">
+        <li style="transform: rotateY(0deg) translateZ(430px);"><a href="#">1</a></li>
+        <li style="transform: rotateY(40deg) translateZ(430px);"><a href="#">2</a></li>
+        <li style="transform: rotateY(80deg) translateZ(430px);"><a href="#">3</a></li>
+        <li style="transform: rotateY(120deg) translateZ(430px);"><a href="#">4</a></li>
+        <li style="transform: rotateY(160deg) translateZ(430px);"><a href="#">5</a></li>
+        <li style="transform: rotateY(200deg) translateZ(430px);"><a href="#">6</a></li>
+        <li style="transform: rotateY(240deg) translateZ(430px);"><a href="#">7</a></li>
+        <li style="transform: rotateY(280deg) translateZ(430px);"><a href="#">8</a></li>
+        <li style="transform: rotateY(320deg) translateZ(430px);"><a href="#">9</a></li>
     </ul>
 </nav>
 <!--背景特效-->
@@ -26,18 +27,52 @@
 <!--背景特效js-->
 <script src="js/index_bgCanvas.js"></script>
 <script>
-    transform = function (element, value, key) {
-        key = key || "Transform";
-        ["Moz", "O", "Ms", "Webkit", ""].forEach(function (prefix) {
-            element.style[prefix + key] = value;
-        });
-        return element;
+    var i = 0;//向上滚动鼠标滚轮的次数和键盘左箭头按下的次数
+    var j = 0;//向下滚动鼠标滚轮的次数和键盘右箭头按下的次数
+    /**
+     * 滚轮事件只有firefox比较特殊，使用DOMMouseScroll; 其他浏览器使用mousewheel;
+     */
+
+    /* firefox */
+    document.body.addEventListener("DOMMouseScroll", function (event) {
+        var direction = event.detail && (event.detail > 0 ? "上" : "下");
+        console.log(direction + ':' + event.detail);
+        if (event.detail > 0) {//如果向上滚动鼠标滚轮
+            i++;
+            $("ul").css("transform", "rotateY(" + event.detail / 3 * (i - j) + "deg)");
+        } else {
+            j++;
+            $("ul").css("transform", "rotateY(" + event.detail / 3 * (j - i) + "deg)");
+        }
+    });
+
+    /* chrome and ie */
+    document.body.onmousewheel = function (event) {
+        event = event || window.event;
+        var direction = event.wheelDelta && (event.wheelDelta > 0 ? "上" : "下");
+        console.log(direction + ':' + event.wheelDelta);
+        if (event.wheelDelta > 0) {//如果向上滑动滚轮
+            i++;
+            $("ul").css("transform", "rotateY(" + event.wheelDelta / 3 * (i - j) + "deg)");
+        } else {
+            j++;
+            $("ul").css("transform", "rotateY(" + event.wheelDelta / 3 * (j - i) + "deg)");
+        }
     };
-    var i = 0;
-    var liNum = $('ul li').length;//列表数量
-    rotate = 360 / liNum;//角度
-    $("ul").click(function () {
-        transform(this, "rotateY(" + (-1 * rotate * ++i) + "deg)");
+
+
+    /**
+     * 响应键盘事件，上下左右
+     */
+    $(document).keydown(function (event) {
+        if (event.keyCode === 37 || event.keyCode === 38) {
+            i++;
+            $("ul").css("transform", "rotateY(" + (i - j) * 40 + "deg)");
+        }
+        if (event.keyCode === 39 || event.keyCode === 40) {
+            j++;
+            $("ul").css("transform", "rotateY(" + (j - i) * -40 + "deg)");
+        }
     });
 </script>
 </body>
